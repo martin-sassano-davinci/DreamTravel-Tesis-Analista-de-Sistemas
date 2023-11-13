@@ -1,0 +1,9 @@
+usuario administrador:
+
+martin@martin.com
+123456789
+
+usuario cliente:
+
+qwerty@qwerty.com
+123456789

@@ -1,0 +1,22 @@
+<?php
+
+require_once('modelos/Cnx.php');
+
+$db = new Cnx();
+$conectar = $db->conectar();
+ 
+
+$id = $_GET['id'];
+
+ 
+        $sql = 'DELETE FROM productos WHERE id_prod = :id_prod';
+        $stmt = $conectar->prepare($sql);               
+       
+        if ($stmt->execute([':id_prod' => $id])) {
+            header("Location: admin.php?status=deleted");
+          } else {
+            header("Location: admin.php?status=fail_delete");
+          }
+        
+
+?>
