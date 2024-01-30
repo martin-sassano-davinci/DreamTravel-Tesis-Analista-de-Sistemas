@@ -16,22 +16,14 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="index.php">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="paquetes.php">Paquetes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="blog.php">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contacto.php">Contacto</a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="admin.php">Admin</a>
           </li>
         </ul>
 
     
-        <a href="compra.php"><i class="bi bi-cart2" style="font-size: 2rem; color: #FFC107; padding-right: 15px;"></i></a>
+        
         <div class="text-end">
           <a button type="button" class="btn btn-outline-light me-2" href="logout.php">Logout</a>
         </div>

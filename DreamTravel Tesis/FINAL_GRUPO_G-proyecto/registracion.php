@@ -6,7 +6,13 @@
     <meta name="description" content="">
     <title>Registro</title>
 
-    <?php include_once('vistas/css.php'); ?>
+    <?php 
+    session_start();
+    if(isset($_SESSION['user_role'])){
+      header('Location: index.php');
+    }
+    include_once('vistas/css.php'); 
+    ?>
   </head>
   <body>
     
@@ -14,7 +20,7 @@
 
 
   <!-- Custom styles for this template -->
-  <section class=" p-5" style="background-color: #eee;">
+  <section class=" p-0 mt-5" style="background-color: #eee;">
     <div class="container">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
@@ -35,7 +41,12 @@
                     <strong>¡Error!</strong> No se ha podido registrar. Ya se ha registrado con este mail.
                     </div>';
                   }
-
+                  
+                  if(isset($_GET['errorPassIntro'])){
+                    echo '<div class="alert alert-danger" role="alert">
+                          <strong>¡Error!</strong> No se ha podido registrar. La contraseña debe contener una mayuscula, una minuscula, un numero y un caracter especial.
+                        </div>';
+                  }
                   if(isset($_GET['errorPass'])){ 
                   
                     echo '<div class="alert alert-danger" role="alert">
@@ -85,13 +96,7 @@
                         <label class="form-label" for="form3Example4cd">Repeat your password</label>
                       </div>
                     </div>
-  
-                    <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                      <label class="form-check-label" for="form2Example3">
-                        I agree all statements in <a href="#!">Terms of service</a>
-                      </label>
-                    </div>
+                
   
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">                     
                       <input type="submit" type="button" name='submit' class="btn btn-primary btn-lg" value="Registrar">

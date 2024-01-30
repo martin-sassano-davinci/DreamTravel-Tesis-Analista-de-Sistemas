@@ -19,7 +19,10 @@
   <body>
     <?php 
     session_start();
-    include_once('config/config.php'); ?>
+    include_once('config/config.php');
+    require_once('modelos/Cnx.php');  
+    ?>
+    
     
     <?php 
     include_once('vistas/header.php'); 
@@ -123,69 +126,208 @@
 
     <hr class="featurette-divider">
 
+    <div class="container">
     <div class="row featurette indigo">
-      <div class="col-md-7 ">
-        <h2 class="featurette-heading">Disney, <span class="text-muted"> de regreso a un mundo lleno de magia!</span></h2>
-        <br><p class="lead">El Walt Disney World Resort, también conocido como Disney World, es un complejo turístico famoso por sus parques temáticos y numerosos hoteles.</p>
-        <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
-       </div>
-      <div class="col-md-5">
-        <img class="img-fluid padding" src="img/disney.png" alt="rounded" width="500" height="500">
-
-      </div>
+        <div class="col-md-7 p-4 ">
+            <h2 class="featurette-heading">Disney, <span class="text-muted">de regreso a un mundo lleno de magia!</span></h2>
+            <p class="lead">El Walt Disney World Resort, también conocido como Disney World, es un complejo turístico famoso por sus parques temáticos y numerosos hoteles.</p>
+            <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
+        </div>
+        <div class="col-md-5">
+            <img class="img-fluid rounded" src="img/disney.png" alt="rounded" width="500" height="500">
+        </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette indigo">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Mykonos, <span class="text-muted">la famosa isla griega que te va a enamorar.</span></h2>
-        <br><p class="lead">Mykonos es una isla del grupo de las Cícladas en el mar Egeo. Los monumentos icónicos incluyen una hilera de molinos de viento del siglo XVI, que se ubican en una colina sobre la ciudad de Mykonos.</p>
-        <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
-       </div>
-      <div class="col-md-5 order-md-1">
-        <img class="img-fluid" src="img/a1.png" alt="rounded" width="500" height="500">
-
-      </div>
+        <div class="col-md-7 order-md-2 p-4 ">
+            <h2 class="featurette-heading">Mykonos, <span class="text-muted">la famosa isla griega que te va a enamorar.</span></h2>
+            <p class="lead">Mykonos es una isla del grupo de las Cícladas en el mar Egeo. Los monumentos icónicos incluyen una hilera de molinos de viento del siglo XVI, que se ubican en una colina sobre la ciudad de Mykonos.</p>
+            <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="img-fluid rounded" src="img/a1.png" alt="rounded" width="500" height="500">
+        </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette indigo">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Taj Mahal, <span class="text-muted">una maravilla arquitectonica en Agra, India.</span></h2>
-        <br><p class="lead">El Taj Mahal ​​ es un monumento funerario construido entre 1631 y 1654 en la ciudad de Agra, estado de Uttar Pradesh, a orillas del río Yamuna, por el emperador musulmán Shah Jahan de la dinastía mogol.</p>
-        <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
-       </div>
-      <div class="col-md-5">
-        <img class="img-fluid padding" src="img/a2.png" alt="rounded" width="500" height="500">
-
-      </div>
+        <div class="col-md-7 p-4 ">
+            <h2 class="featurette-heading">Taj Mahal, <span class="text-muted">una maravilla arquitectónica en Agra, India.</span></h2>
+            <p class="lead">El Taj Mahal ​​ es un monumento funerario construido entre 1631 y 1654 en la ciudad de Agra, estado de Uttar Pradesh, a orillas del río Yamuna, por el emperador musulmán Shah Jahan de la dinastía mogol.</p>
+            <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
+        </div>
+        <div class="col-md-5">
+            <img class="img-fluid rounded" src="img/a2.png" alt="rounded" width="500" height="500">
+        </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette indigo">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Las pirámides Egipto, <span class="text-muted">las construcciones más antiguas que permanecen en pie.</span></h2>
-        <br><p class="lead">Símbolos del Egipto moderno, las pirámides de Keóps, Kefrén y Micerino levantadas en la llanura de Guiza, que se observan a las afueras de la capital del Egipto moderno, El Cairo.</p>
-        <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
-       </div>
-      <div class="col-md-5 order-md-1">
-        <img class="img-fluid" src="img/a3.png" alt="rounded" width="500" height="500">
-
-      </div>
+        <div class="col-md-7 order-md-2 p-4 ">
+            <h2 class="featurette-heading">Las pirámides Egipto, <span class="text-muted">las construcciones más antiguas que permanecen en pie.</span></h2>
+            <p class="lead">Símbolos del Egipto moderno, las pirámides de Keóps, Kefrén y Micerino levantadas en la llanura de Guiza, que se observan a las afueras de la capital del Egipto moderno, El Cairo.</p>
+            <p><a class="btn btn-secondary btn-warning" href="paquetes.php">Ver más &raquo;</a></p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="img-fluid rounded" src="img/a3.png" alt="rounded" width="500" height="500">
+        </div>
     </div>
 
     <hr class="featurette-divider">
+</div>
+  
+  <!-- /.container -->
+  <?php
+  $db = new Cnx();
+$conectar = $db->conectar();
+$stmt = $conectar->query('SELECT * FROM opiniones'); 
+$testimonios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    <!-- /END THE FEATURETTES -->
+?>
 
-  </div><!-- /.container -->
+<div class="container mt-5">
+  <div class="row">
+
+    <?php
+  
+    $sql = 'SELECT o.*, c.id_compras, p.img
+            FROM opiniones o
+            INNER JOIN compras c ON o.id_compras = c.id_compras
+            INNER JOIN productos p ON c.destino = p.destino
+            ORDER BY RAND()
+            LIMIT 3';
+
+    $stmt = $conectar->query($sql);
+    $testimonios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($testimonios as $testimonio) {
+    ?>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <img src="<?php echo $testimonio['img']; ?>" class="card-img-top rounded-circle img-fluid mx-auto mt-3" alt="Imagen de destino <?php echo $index + 1; ?>" style="width: 150px; height: 150px; object-fit: cover;">
+            <h5 class="card-title h4 m-3"><?php echo $testimonio['titulo']; ?></h5>
+            <p class="card-text testimonial-text m-3"><?php echo $testimonio['comentario']; ?></p>
+            <p class="card-text client-name m-3"><small class="text-muted"><?php echo $testimonio['nombre']; ?></small></p>
+            <div class="text-center">
+              <?php
+              
+              $calificacion = $testimonio['calificacion'];
+
+              
+              for ($star = 1; $star <= 5; $star++) {
+                
+                $estrellaLlena = $star <= $calificacion ? '&#9733;' : '&#9734;';
+
+                
+                echo "<span class='text-warning'>$estrellaLlena</span> ";
+              }
+              ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php } ?>
+
+  </div>
+</div>
+
+            <div class='container p-5 m-3 mx-auto text-center'>
+                <a href='resenias.php' class='btn btn-primary text-center mx-auto'>Ver más reseñas</a>
+            </div>
+           
 </main>
 
-    <?php include_once('vistas/footer.php'); ?>
-   
+
+
+<!-- footer -->
+<footer class="bg-dark text-center text-white mt-5">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a class="btn btn-outline-light btn-floating  m-1" href="#!" role="button"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+
+      <div class="container mt-4" id="suscripcion">
+      <p class="h4">Suscripción a Newsletter</p>
+    <form action="suscripcion.php" method="post" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-8 m-3 mx-auto">
+                <input type="email" name="email" class="form-control " placeholder="Ingresa tu correo electrónico" required>
+                <div class="invalid-feedback m-3 h3">Por favor ingresa un correo válido.</div>
+            </div>
+            <div class="col-4 m-3 mx-auto">
+                <button type="submit" class="btn btn-warning">Suscribirse</button>
+            </div>
+
+            <?php
+            if(isset($_GET['formularioEnviado'])){ 
+                  
+              echo '<div class="alert alert-success m-3" role="alert">
+                    <strong>¡Gracias!</strong> Te has suscrito al Newsletter!.
+                  </div>';
+            }  
+              if (isset($_GET['errorMailRepetido'])){
+                echo '<div class="alert alert-danger m-3" role="alert">
+                <strong>¡Error!</strong> al suscribirse, por favor ingrese otro email.
+                </div>';
+              }
+
+            ?>
+        </div>
+    </form>
+</div>
+
+<!-- validación -->
+
+<script>
+    // Activar la validación de Bootstrap
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Copyright
+        <a class="text-white" href="https://mdbootstrap.com/%22%3EMDBootstrap.com"></a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    
     <?php include_once('vistas/js.php'); ?>
   </body>
 </html>

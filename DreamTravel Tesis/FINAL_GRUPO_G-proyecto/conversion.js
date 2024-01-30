@@ -32,3 +32,4 @@ function convertir() {
         console.log('Error al obtener las tasas de cambio:', error);
     });
 }
+

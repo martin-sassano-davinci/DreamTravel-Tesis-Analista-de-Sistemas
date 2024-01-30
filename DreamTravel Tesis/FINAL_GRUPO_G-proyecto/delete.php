@@ -2,6 +2,8 @@
 
 require_once('modelos/Cnx.php');
 
+session_start();
+if($_SESSION['user_role'] == 'admin'){
 $db = new Cnx();
 $conectar = $db->conectar();
  
@@ -18,5 +20,7 @@ $id = $_GET['id'];
             header("Location: admin.php?status=fail_delete");
           }
         
-
+        } else{
+          header("Location: index.php"); 
+      }
 ?>

@@ -1,5 +1,8 @@
-
-
+<?php 
+session_start();
+if($_SESSION['user_role'] == 'admin'){
+        
+    ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +15,10 @@
   </head>
   <body>
 
-    <?php require_once("vistas/header.php") ?>
+    <?php 
+    require_once("vistas/header.php");
+    ?>
+    
 
     <div class="container">
         <a href="admin.php" class="btn btn-light mb-3 m-5"><< Go Back</a>
@@ -40,28 +46,51 @@
                             <input type="number" class="form-control" min="1" id="precio" name="precio" placeholder="Precio" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="aereos" class="col-form-label">Aereos</label>
-                            <input type="text" class="form-control" name="aereos" id="aereos" placeholder="Aereos" required>
-                        </div>
-                        <div class="form-group col-md-4">
                             <label for="hospedaje" class="col-form-label">Hospedaje</label>
-                            <input type="text" class="form-control" name="hospedaje" id="hospedaje" placeholder="Hospedaje" required>
+                            <input type="text" class="form-control" name="hospedaje" id="hospedaje"  placeholder="hospedaje" required>
                         </div>
                     </div>
                     
                     <div class="form-group col-md-4">
+                            <label for="estrellas_hotel" class="col-form-label">Estrellas Hotel</label>
+                            <input type="number" min="2" max="7" class="form-control" name="estrellas_hotel"  id="estrellas_hotel" placeholder="estrellas_hotel" required>
+                        </div>
+                    
+
+                    <div class="form-group col-md-4">
                             <label for="comidas" class="col-form-label">Comidas</label>
-                            <input type="text" class="form-control" name="comidas" id="comidas" placeholder="Comidas" required>
+                            <input type="text" class="form-control" name="comidas"  id="comidas" placeholder="comidas" required>
                         </div>
-                    <div class="form-group col-md-4">
-                            <label for="personas" class="col-form-label">Personas</label>
-                            <input type="number" class="form-control" min="1" name="personas" id="personas" placeholder="Personas" required>
+
+                        <div class="form-group col-md-4">
+                            <label for="ideal" class="col-form-label">Ideal</label>
+                            <input type="text" class="form-control" name="ideal"  id="ideal" placeholder="ideal" required >
                         </div>
+                        
                     <div class="form-group col-md-4">
+                            <label for="dias" class="col-form-label">Dias</label>
+                            <input type="number" class="form-control" name="dias"  id="dias" placeholder="dias" min="2" required>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="aeropuerto" class="col-form-label">Aeropuerto</label>
+                            <input type="text" class="form-control" name="aeropuerto" id="aeropuerto" placeholder="aeropuerto" required >
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="desde" class="col-form-label">Desde</label>
+                            <input type="date" class="form-control" name="desde"  id="desde" >
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="hasta" class="col-form-label">Hasta</label>
+                            <input type="date" class="form-control" name="hasta"  id="hasta" >
+                        </div>
+                    <div class="form-group col-md-4 mt-3">
                             <label for="archivo" class="col-form-label">Archivo</label>
                             <input type="file" class="form-control-file" name="archivo" id="archivo" required>
                         </div>
-                        
+                        </div>
                     <br>
                     <button name="add" class="btn btn-success"><i class="fa fa-check-circle"></i> Save</button>
                 </form>
@@ -70,7 +99,12 @@
         <!-- End create form -->
         <br>
     </div><!-- /.container -->
-<?php include("vistas/footer.php") ?>
+<?php 
+}else{
+    header("Location: login.php"); 
+}
+include("vistas/footer.php");
+ ?>
 <?php include("vistas/js.php") ?>
 </body>
 </html>

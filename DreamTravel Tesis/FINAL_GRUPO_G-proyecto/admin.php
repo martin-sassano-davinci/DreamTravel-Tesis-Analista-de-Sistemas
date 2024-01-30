@@ -1,29 +1,17 @@
 <?php
 session_start();
 
+if($_SESSION['user_role'] == 'admin'){
+        
+   
 include_once('modelos/Cnx.php');
 
 $db = new Cnx();
  $conectar = $db->conectar();
- $comando = $conectar->prepare("SELECT id_prod, destino, info, precio, aereos, hospedaje, comidas, cant_personas FROM productos");
+ $comando = $conectar->prepare("SELECT * FROM productos");
 $comando->execute();
 $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
-// $query = $conectar->query("SELECT * FROM productos");
-// $query->execute();
-// $productos = $query->fetchAll(PDO::FETCH_ASSOC);
-// $consulta = $conectar=>prepare("SELECT * FROM productos"); realizar consulta
-// $consulta->execute(); ejecutar consulta
-// $consulta->fetchAll(PDO::FETCH_ASSOC); obtener resultados asociativos (default si ponemos fetchAll())
-// $consulta->fetchAll(PDO::FETCH_OBJ); obtener resultados objetos
 
-	// if (!$_SESSION['user_role'] = 'admin') {
-	// 	header("Location: index.php"); 
-	// }
-	// if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'){
-	// 	echo "Bienvenido Admin!";
-	// } else {
-	// 	header("Location: index.php");
-	// }
 	if (!isset($_SESSION['user_role'])) {
 		header('location: login.php');
 	} else {
@@ -291,6 +279,19 @@ table.table .avatar {
 			<strong>Error al editar producto.</strong>
 			</div>
 		<?php endif ?>
+<!-- prod error al editar fechas -->
+<?php if (isset($_GET['status']) && $_GET['status'] == "fail_update_fechas") : ?>
+		<div class="alert alert-danger" role="alert">
+			<strong>Error al editar las fechas.</strong>
+			</div>
+		<?php endif ?>
+		<!-- prod error al editar fechas dias -->
+<?php if (isset($_GET['status']) && $_GET['status'] == "fail_update_dias") : ?>
+		<div class="alert alert-danger" role="alert">
+			<strong>Error al editar las fechas. No coincide la fecha con los dias.</strong>
+			</div>
+		<?php endif ?>
+		
 				<thead>
 					<tr>
 						<th>
@@ -299,7 +300,15 @@ table.table .avatar {
                         <td>Prod</td>
 						<th>Titulo</th>
 						<th>Info</th>
-						<th>Precio</th>						
+						<th>Precio</th>	
+						<th>Hospedaje</th>	
+						<th>Estrellas_hotel</th>	
+						<th>Comidas</th>	
+						<th>Ideal</th>	
+						<th>Dias</th>	
+						<th>Aeropuerto</th>	
+						<th>Desde</th>	
+						<th>Hasta</th>						
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -316,6 +325,15 @@ table.table .avatar {
 						<td><?php echo $row['destino']; ?></td>
 						<td><?php echo $row['info']; ?></td>
 						<td>$ <?php echo $row['precio']; ?> USD</td>
+						<td><?php echo $row['hospedaje']; ?></td>
+						<td><?php echo $row['estrellas_hotel']; ?></td>
+						<td><?php echo $row['comidas']; ?></td>
+						<td><?php echo $row['ideal']; ?></td>
+						<!-- <td><?php echo $row['img']; ?></td> -->
+						<td><?php echo $row['dias']; ?></td>
+						<td><?php echo $row['aeropuerto']; ?></td>
+						<td><?php echo $row['desde']; ?></td>
+						<td><?php echo $row['hasta']; ?></td>
 						
 						<td>
 							<a href="update.php?id=<?= $row['id_prod'] ?>" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -331,7 +349,11 @@ table.table .avatar {
 
 			
 	
-<?php require_once('vistas/js.php'); ?>
+<?php 
+}else{
+    header("Location: login.php"); 
+}
+require_once('vistas/js.php'); ?>
 
 </body>
 </html>

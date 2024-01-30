@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -8,6 +9,9 @@
 
     <?php 
     session_start();
+    if(isset($_SESSION['user_role'])){
+      header('Location: index.php');
+    }
     include_once('vistas/css.php'); ?>
   </head>
   <body>
@@ -62,9 +66,7 @@
   </div>
 
   <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
+    <a href="olvidar_contra.php">Recuperar contraseña</a>
   </div>
   <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
   <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>

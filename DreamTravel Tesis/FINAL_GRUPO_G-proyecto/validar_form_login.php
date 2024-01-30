@@ -2,6 +2,8 @@
 session_start();
 
 require_once('modelos/Cnx.php');
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
 
 
 $db = new Cnx();
@@ -11,22 +13,22 @@ $conectar = $db->conectar();
 $email = $_POST['email'];
 filter_var($email, FILTER_VALIDATE_EMAIL);
 
-// $name = $conectar->prepare("SELECT nombre FROM usuarios WHERE mail = '$email' LIMIT 1");
-// $name = execute();
-// $resultado_name = $name->fetchAll(); 
-
-// $name = $conectar->prepare("SELECT nombre FROM usuarios WHERE mail = :email LIMIT 1");
-// $name->execute(array(':email' => $email));
-// $resultado_name = $name->fetchAll();
-
 $name = $conectar->prepare("SELECT nombre FROM usuarios WHERE mail = :email LIMIT 1");
 $name->execute(array(':email' => $email));
 $resultado_name = $name->fetch(); // Usa fetch() en lugar de fetchAll() para obtener una sola fila
+
 
 if ($resultado_name) {
     $_SESSION['user_name'] = $resultado_name['nombre']; // Almacena solo el nombre de usuario
 }
 
+$idUsuario = $conectar->prepare("SELECT id_usu FROM usuarios WHERE mail = :email LIMIT 1");
+$idUsuario->execute(array(':email' => $email));
+$resultado_idUsuario = $idUsuario->fetch();
+
+if ($resultado_idUsuario) {
+    $_SESSION['id_usuario'] = $resultado_idUsuario['id_usu'];  
+}
 
 $pass = validarForm($_POST['pass'] ?? null );
 
@@ -58,31 +60,10 @@ if ($email != null && $pass != null) {
 
             }
         }
-
-     // if (count($resultado) == 1) {
-
-     //     header("Location: login.php?formularioEnviado");
+    } else{
+        header("Location: login.php"); 
+    }
     
-    // } else {
-    
-    // header("Location: login.php?formularioNoEnviado"); 
-        // }
-    // $sql = $conectar->prepare("SELECT * FROM usuarios WHERE mail = '$email' AND pass = '$pass' ");
-    // $sql->execute();
-    // $resultado = $sql->fetchAll();
-
-    
-
-
-
-    
-    
-
-    
-
-
-
-
 function validarForm($data)
 {
     $data = trim($data);

@@ -2,6 +2,8 @@
 
 require_once('modelos/Cnx.php');
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
 $name = validarForm($_POST['name'] ?? null );
 
 $email = $_POST['email'];
@@ -22,11 +24,15 @@ if ($name != null && $email != null && $pass != null && $pass2 != null) {
      $sql->execute();
      $resultado = $sql->fetchAll();
     
+     $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
     if (count($resultado) > 0) {
 
         header("Location: registracion.php?errorMailRepetido");
 
-    } else if($pass != $pass2){
+    } else if(preg_match($password_regex, $pass) == 0){
+
+        header("Location: registracion.php?errorPassIntro");
+    }else if($pass != $pass2){
 
         header("Location: registracion.php?errorPass");
 
@@ -43,7 +49,9 @@ if ($name != null && $email != null && $pass != null && $pass2 != null) {
     header("Location: registracion.php?formularioNoEnviado");
 
 }
-
+} else{
+    header("Location: registracion.php"); 
+}
 
 
 function validarForm($data)

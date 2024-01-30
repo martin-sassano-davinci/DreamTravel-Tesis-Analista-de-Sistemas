@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
     <title>Conversor de Moneda</title>
     
     <?php include_once('vistas/css.php'); ?>
 </head>
+
 <body>
 <?php 
     
@@ -33,7 +39,7 @@
             <select id="monedaA" class="form-control">
                 <option value="USD">Dólar estadounidense (USD)</option>
                 <option value="EUR">Euro (EUR)</option>
-                <!-- Agrega más opciones según tus necesidades -->
+                
             </select>
         </div>
         <button onclick="convertir()" class="btn btn-primary mt-3">Convertir</button>
@@ -43,9 +49,10 @@
         </div>
     </div>
 
-    <?php include_once('vistas/footer.php'); ?>
+    
    
-   <?php include_once('vistas/js.php'); ?>
+   
    <script src="conversion.js"></script>
+   <?php include_once('vistas/js.php'); ?>
 </body>
 </html>
