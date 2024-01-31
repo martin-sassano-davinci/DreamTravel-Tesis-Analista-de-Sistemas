@@ -72,20 +72,27 @@ try {
     $fechaFormateadaHasta = str_replace('.', '', $fechaFormateadaHasta);
 
     if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] == 0) {
-        $info_img = pathinfo($_FILES['archivo']['name']);
-        $extension = $info_img['extension'];
-        $nombre_archivo = $info_img['filename'];
 
-        $nombre_archivo = preg_replace("/[^A-Za-z0-9]/", "", $nombre_archivo);
-        $time = time();
-
-        $extensiones_permitidas = array('jpg', 'jpeg', 'png');
-
-        if (in_array($extension, $extensiones_permitidas)) {
+        $info_img =  pathinfo($_FILES['archivo']['name']); //info de la imagen
+        $extension = $info_img['extension']; //extension de la imagen
+        $nombre_archivo = $info_img['filename']; //nombre de la imagen sin extension 
+    
+        $nombre_archivo = preg_replace("/[^A-Za-z0-9]/", "", $nombre_archivo); //eliminamos caracteres especiales, solo permite caracteres alfanumericos
+    
+        $time = time(); // tiempo transcurrido en segundos desde 1970-01-01
+    
+        $extensiones_permitidas = array('jpg', 'jpeg', 'png'); //extensiones permitidas
+       
+        if(in_array($extension, $extensiones_permitidas)){
+    
             $origen = $_FILES['archivo']['tmp_name'];
-
-            // Leer el contenido del archivo en forma de bytes
-            $imagen_binaria = file_get_contents($origen);
+            $destino_img = "img/{$nombre_archivo}_{$time}.{$extension}";
+    
+           move_uploaded_file( $origen, $destino_img);
+    
+            // $ruta = "img/".$nombre_archivo.".".$extension;
+            // move_uploaded_file($_FILES['archivo']['tmp_name'], $ruta);
+            // echo "Archivo subido correctamente";
 
             // Preparar la consulta SQL para insertar en la base de datos
             $sql = 'INSERT INTO productos(destino, info, precio, hospedaje, estrellas_hotel, comidas, ideal, dias, aeropuerto, desde, hasta, img) VALUES(:destino, :info, :precio, :hospedaje, :estrellas_hotel, :comidas, :ideal, :dias, :aeropuerto, :desde, :hasta, :img)';
@@ -102,7 +109,7 @@ try {
             $stmt->bindParam(":aeropuerto", $aeropuerto);
             $stmt->bindParam(":desde", $fechaFormateadaDesde);
             $stmt->bindParam(":hasta", $fechaFormateadaHasta);
-            $stmt->bindParam(":img", $imagen_binaria, PDO::PARAM_LOB); // Almacenar el contenido binario en el campo BLOB
+            $stmt->bindParam(":img", $destino_img); // Almacenar el contenido binario en el campo BLOB
             $stmt->execute();
 
             if ($stmt->rowCount()) {

@@ -167,8 +167,7 @@ foreach ($productosEnCarrito as $idProducto) {
             // Manejar el caso en el que la inserción falló
             echo "
             <div class='container p-5 mx-auto text-center'>
-                        <p class='mt-5 alert alert-danger text-center mx-auto'>Error al realizar la compra.</p>
-                        <a href='paquetes.php' class='btn btn-primary text-center mx-auto'>Ver más paquetes de viaje</a>
+                        <p class='mt-5 alert alert-danger text-center mx-auto'>Error al realizar la compra. Volve a intentar.</p>                 
                     </div>
             ";
         }
