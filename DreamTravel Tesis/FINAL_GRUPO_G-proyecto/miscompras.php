@@ -1,4 +1,79 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_role'])) { 
+include_once('vistas/header.php');
+include_once('vistas/css.php'); 
+?>
 
+      <div class="text-center m-5">
+        <h3 class="h1">Por favor, inicia sesión para ver esta seccion.</h3>
+      
+        <a class="btn btn-lg btn-primary" href="registracion.php" >Registrate</a>
+   
+        <a class="btn btn-lg btn-primary" href="login.php" >Iniciar sesión</a>
+  
+     </div>
+      <?php
+    } else {
+      if($_SESSION['user_role'] == 'user'){
+
+include_once('config/config.php');
+    
+include_once('modelos/Cnx.php');
+
+$db = new Cnx();
+$conectar = $db->conectar();
+
+$id_usuario = $_SESSION['id_usuario'];
+
+
+$stmt = $conectar->prepare("SELECT * FROM compras WHERE id_usu = :idUsu");
+$stmt->execute(array(':idUsu' => $id_usuario));
+$compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+if(empty($compras)){
+include_once('vistas/header.php'); 
+include_once('vistas/header_admin.php');
+include_once('vistas/css.php'); 
+include_once('vistas/js.php'); 
+
+    echo "<div class='container p-5 mx-auto text-center'>
+                <p class='mt-5 alert alert-danger text-center mx-auto'>No has realizado ninguna compra</p>            
+            </div>";
+} else {
+// <!-- paginado -->
+			
+$articulos_x_pagina = 8;
+$total_articulos = $stmt->rowCount();
+$paginas = $total_articulos / $articulos_x_pagina;
+$paginas = ceil($paginas);
+
+
+if (!isset($_GET['pagina']) || $_GET['pagina'] > $paginas || $_GET['pagina'] < 1) {
+    header("Location: miscompras.php?pagina=1");
+    exit(); // Agrega esta línea para detener la ejecución después de la redirección
+}
+
+$iniciar = ($_GET['pagina']-1)*$articulos_x_pagina;
+
+
+$sql_articulos = "SELECT * FROM compras WHERE id_usu = :idUsu LIMIT :iniciar, :articulos_x_pagina";
+$comando_art = $conectar->prepare($sql_articulos);
+$comando_art->bindParam(":idUsu", $id_usuario, PDO::PARAM_INT);
+$comando_art->bindParam(":iniciar", $iniciar, PDO::PARAM_INT);
+$comando_art->bindParam(":articulos_x_pagina", $articulos_x_pagina, PDO::PARAM_INT);
+
+$comando_art->execute();
+$resultado_art = $comando_art->fetchAll(PDO::FETCH_ASSOC);
+
+$anterior = $_GET['pagina'] - 1;
+
+
+
+$siguiente = $_GET['pagina'] + 1;
+ 
+?>
 
 <!doctype html>
 <html lang="es">
@@ -9,10 +84,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>Mis Compras</title>
-  
-
-    <?php include_once('vistas/css.php'); ?>
-
+     <?php include_once('vistas/css.php'); ?>
     <style>
       .padding {
         margin-left: 1.5rem;
@@ -60,77 +132,10 @@
     </style>
   </head>
   <body>
-    <?php 
-    session_start();
-    if (!isset($_SESSION['user_role'])) {
-		
-      ?>
-      <div class="text-center m-5">
-        <h3 class="h1">Por favor, inicia sesión para ver esta seccion.</h3>
-      
-        <a class="btn btn-lg btn-primary" href="registracion.php" >Registrate</a>
-   
-        <a class="btn btn-lg btn-primary" href="login.php" >Iniciar sesión</a>
-  
-     </div>
-      <?php
-    } else {
-      if($_SESSION['user_role'] == 'user'){
-
-    include_once('config/config.php');
-    
-    
-
-    
-	
-    ?>
-
 <?php
-include_once('modelos/Cnx.php');
-
-$db = new Cnx();
-$conectar = $db->conectar();
-
-$id_usuario = $_SESSION['id_usuario'];
-
-
-$stmt = $conectar->prepare("SELECT * FROM compras WHERE id_usu = :idUsu");
-$stmt->execute(array(':idUsu' => $id_usuario));
-$compras = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// <!-- paginado -->
-			
-$articulos_x_pagina = 8;
-$total_articulos = $stmt->rowCount();
-$paginas = $total_articulos / $articulos_x_pagina;
-$paginas = ceil($paginas);
-
-
-if (!$_GET || $_GET['pagina'] > $paginas || $_GET['pagina'] < 1) {
-  header("Location: miscompras.php?pagina=1");
-}
-
-$iniciar = ($_GET['pagina']-1)*$articulos_x_pagina;
-
-
-$sql_articulos = "SELECT * FROM compras WHERE id_usu = :idUsu LIMIT :iniciar, :articulos_x_pagina";
-$comando_art = $conectar->prepare($sql_articulos);
-$comando_art->bindParam(":idUsu", $id_usuario, PDO::PARAM_INT);
-$comando_art->bindParam(":iniciar", $iniciar, PDO::PARAM_INT);
-$comando_art->bindParam(":articulos_x_pagina", $articulos_x_pagina, PDO::PARAM_INT);
-
-$comando_art->execute();
-$resultado_art = $comando_art->fetchAll(PDO::FETCH_ASSOC);
-
-$anterior = $_GET['pagina'] - 1;
-
-
-
-$siguiente = $_GET['pagina'] + 1;
 include_once('vistas/header.php'); 
-include_once('vistas/header_admin.php'); 
+include_once('vistas/header_admin.php');
 ?>
-
 <div class="container mt-5">
     <h2 class="text-center">Mis Compras</h2>
     <div class="table-responsive">
@@ -163,9 +168,7 @@ include_once('vistas/header_admin.php');
                             </tr>";
                         $orden++;
                     }
-                } else {
-                    echo "<tr><td colspan='4'>No has realizado ninguna compra</td></tr>";
-                }
+                } 
                 ?>
             </tbody>
         </table>
@@ -191,7 +194,7 @@ include_once('vistas/header_admin.php');
 </div>
 
    <?php include_once('vistas/js.php'); 
-      }} 
+      }}}
    ?>
 </body>
 </html>
