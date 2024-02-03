@@ -23,7 +23,6 @@
   <link href="signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-  
 <main class="form-signin p-5">
 <form action="validar_form_login.php" method="POST">
   <img class="mb-4" src="img/user.png" alt="">
